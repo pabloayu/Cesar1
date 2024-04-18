@@ -1,18 +1,21 @@
-abecedario = list("ABCDEFGHIJKLMNÑOPQRSTUVWXYZA")
-abecedario1 = list("abcdefghijklmnñopqrstuvwxyza")
-
 def cifrar(frase, distancia):
-    retorno = ""
-    for i in frase:
-        if i in abecedario:
-            n = abecedario.index(i)
-            retorno += abecedario[(n + distancia) % len(abecedario)]
-        elif i in abecedario1:
-            n = abecedario1.index(i)
-            retorno += abecedario1[(n + distancia) % len(abecedario1)]
+    alfabeto = list("ABCDEFGHIJKLMNÑOPQRSTUVWXYZ")
+    cadena_cifrada = ""
+    frase = frase.upper()
+    for letra in frase:
+        if letra in alfabeto:
+            posicion_inicial = alfabeto.index(letra)
+            nueva_posicion = posicion_inicial + distancia
+            while nueva_posicion >= len(alfabeto):
+                nueva_posicion -= len(alfabeto)
+            cadena_cifrada += alfabeto[nueva_posicion]
         else:
-            retorno += i  # Para manejar caracteres que no están en las listas, como espacios o signos de puntuación.
-    return retorno
+            # Si el caracter no es una letra, lo añadimos sin cifrar
+            cadena_cifrada += letra
+    return cadena_cifrada
 
-print(cifrar("Hola", 1))
-print(cifrar("Pablo", 2))
+# Ejemplo de uso:
+frase = "HOLA MUNDO"
+distancia = 1
+print("Frase original:", frase)
+print("Frase cifrada:", cifrar(frase, distancia))
